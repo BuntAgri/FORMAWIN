@@ -1,79 +1,289 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>V.E. BATIMENT</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FORMAWIN — Insertion & Formation</title>
+  <meta name="description" content="FORMAWIN — accompagnement, formation et insertion professionnelle. Contact : admin@dvtrix.shop, +33 7 46 34 67 11. Adresse : 10 Rue Blacas, 06000 Nice, France." />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: #f9fafb; color: #111827; line-height: 1.6; }
-    header, footer { background: #1f2937; color: white; text-align: center; padding: 30px; }
-    nav a { color: #fbbf24; margin: 0 12px; text-decoration: none; font-weight: 600; }
-    section { padding: 60px 20px; max-width: 1200px; margin: auto; text-align: center; }
-    h2 { color: #1f2937; margin-bottom: 20px; font-size: 2.4em; }
-    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-    .gallery img { width: 100%; border-radius: 8px; }
-    .contact-form input, .contact-form textarea {
-      width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;
+    :root{
+      --ink:#0b1b1a;          /* deep teal/green */
+      --sea:#0f2f2c;
+      --mint:#1f6f68;
+      --accent:#34d399;       /* emerald */
+      --accent2:#8ef0c6;
+      --text:#f4fffb;
+      --muted:#c9e7df;
+      --ring:rgba(52,211,153,.28);
+      --max:1200px;
     }
-    iframe { width: 100%; height: 300px; border: 0; border-radius: 8px; margin-top: 20px; }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--ink); color:var(--text); line-height:1.6;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:24px}
+
+    /* NAV */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      background:rgba(7,26,24,.72); backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.09);
+    }
+    .nav-wrap{display:flex; align-items:center; justify-content:space-between}
+    .brand{
+      font-weight:900; letter-spacing:.4px;
+      background:linear-gradient(120deg,var(--accent2),var(--accent));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .menu{display:flex; gap:18px}
+    .menu a{opacity:.9} .menu a:hover{opacity:1}
+
+    /* HERO */
+    .hero{
+      position:relative; min-height:88vh; display:flex; align-items:center; justify-content:center; text-align:center;
+      overflow:hidden; background:linear-gradient(120deg,var(--sea),var(--mint));
+    }
+    .gridfx{
+      position:absolute; inset:-50%;
+      background:
+        radial-gradient(circle, rgba(255,255,255,.14) 9%, transparent 20%) 0 0/220px 220px,
+        radial-gradient(circle, rgba(255,255,255,.09) 9%, transparent 20%) 110px 110px/220px 220px;
+      animation:spin 22s linear infinite; filter:blur(1px);
+    }
+    @keyframes spin{from{transform:rotate(0)} to{transform:rotate(360deg)}}
+    .glow{
+      position:absolute; width:1200px; height:1200px; border-radius:50%;
+      background:radial-gradient(closest-side, rgba(52,211,153,.22), transparent 65%);
+      filter: blur(28px);
+    }
+    .hero-content{position:relative; z-index:2; padding:0 18px; max-width:900px}
+    .title{
+      font-size:clamp(32px,6vw,64px); font-weight:900; margin:0 0 10px;
+      text-shadow:0 2px 14px rgba(0,0,0,.55);
+      animation:glow 2.1s ease-in-out infinite alternate;
+    }
+    @keyframes glow{
+      from{ text-shadow:0 2px 10px rgba(0,0,0,.45), 0 0 6px rgba(142,240,198,.25)}
+      to{   text-shadow:0 2px 18px rgba(0,0,0,.65), 0 0 22px rgba(52,211,153,.45)}
+    }
+    .subtitle{opacity:.96; font-size:clamp(14px,2.2vw,18px); margin:0 0 18px}
+    .tags{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:18px}
+    .tag{
+      font-size:12px; font-weight:800; letter-spacing:.2px; color:#05201b;
+      padding:6px 10px; border-radius:999px; background:linear-gradient(120deg,var(--accent2),var(--accent));
+    }
+    .cta-row{display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+    .btn{
+      display:inline-block; padding:12px 20px; border-radius:14px; font-weight:800;
+      box-shadow:0 14px 32px var(--ring); transition:transform .2s ease, filter .2s ease;
+    }
+    .btn-primary{background:#fff; color:#0b1b1a}
+    .btn-primary:hover{transform:translateY(-2px); filter:brightness(1.03)}
+    .btn-ghost{background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.25)}
+    .btn-ghost:hover{transform:translateY(-2px)}
+
+    /* SECTIONS */
+    section{padding:68px 0}
+    .section-title{
+      font-size:28px; font-weight:900; margin:0 0 8px;
+      background:linear-gradient(120deg,var(--accent2),var(--accent));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .muted{color:var(--muted)}
+
+    /* GALLERY */
+    .gallery{display:grid; gap:18px; grid-template-columns:repeat(2,1fr)}
+    .shot{position:relative; overflow:hidden; border-radius:16px; background:#000}
+    .shot img{width:100%; height:100%; object-fit:cover; display:block; transform:scale(1.02); transition:transform .45s ease}
+    .shot:hover img{transform:scale(1.07)}
+
+    /* FEATURES */
+    .features{background:#0e2623}
+    .features-list{display:grid; gap:14px; max-width:900px; margin:18px auto 0}
+    .feature{
+      background:#11322e; border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:14px 16px;
+      display:flex; gap:10px; align-items:flex-start; box-shadow:0 10px 24px rgba(0,0,0,.45);
+      transform:translateY(10px); opacity:0; transition:transform .6s ease, opacity .6s ease; color:#eafff7;
+    }
+    .feature.show{transform:none; opacity:1}
+    .dot{flex:0 0 10px; height:10px; border-radius:50%; background:var(--accent); margin-top:7px}
+
+    /* COMING SOON */
+    .coming{background:#0d2522; text-align:center; border-top:1px solid rgba(255,255,255,.08); border-bottom:1px solid rgba(255,255,255,.08)}
+    .badge{display:inline-block; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:800; background:rgba(52,211,153,.16); color:#d9fff1; border:1px solid rgba(52,211,153,.35)}
+    .marquee{margin-top:14px; white-space:nowrap; overflow:hidden; mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)}
+    .marquee span{display:inline-block; padding:8px 14px; margin-right:16px; border-radius:999px; border:1px dashed rgba(52,211,153,.35); color:#b7ffe6; background:rgba(52,211,153,.08); animation:slide 18s linear infinite}
+    @keyframes slide{from{transform:translateX(0)} to{transform:translateX(-50%)}}
+
+    /* CONTACT */
+    .contact-grid{display:grid; gap:18px; grid-template-columns:1.1fr .9fr}
+    .card{background:#11322e; border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:18px}
+    .list{list-style:none; padding:0; margin:0}
+    .list li{padding:8px 0; border-bottom:1px dashed rgba(255,255,255,.14)}
+    .btn-send{
+      display:inline-block; margin-top:10px; padding:12px 16px; border-radius:12px; font-weight:800;
+      background:linear-gradient(120deg,var(--accent2),var(--accent)); color:#05201b; border:0;
+      box-shadow:0 12px 28px var(--ring); cursor:pointer; transition:transform .18s ease, filter .18s ease;
+    }
+    .btn-send:hover{transform:translateY(-2px)}
+    input, textarea{
+      width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.18); outline:none;
+      background:#0a1f1d; color:#fff; font-size:16px; transition:border .15s ease, box-shadow .15s ease
+    }
+    input:focus, textarea:focus{border-color:rgba(52,211,153,.55); box-shadow:0 0 0 4px rgba(52,211,153,.18)}
+    textarea{min-height:120px; resize:vertical}
+    iframe{width:100%; height:360px; border:0; border-radius:14px}
+
+    /* FOOTER */
+    footer{padding:28px 0; text-align:center; color:#cfeee5; border-top:1px solid rgba(255,255,255,.08)}
+
+    /* Reveal */
+    .reveal{opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s ease}
+    .reveal.show{opacity:1; transform:none}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .gallery{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+      .menu{display:none}
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>V.E. BATIMENT</h1>
-  <nav>
-    <a href="#about">Présentation</a>
-    <a href="#services">Services</a>
-    <a href="#gallery">Galerie</a>
-    <a href="#contact">Contact</a>
-    <a href="#map">Adresse</a>
-  </nav>
-</header>
-
-<section id="about">
-  <h2>Présentation</h2>
-  <p>Basée à Les Mureaux, V.E. BATIMENT est une entreprise spécialisée dans la maçonnerie générale et les gros travaux de construction. Grâce à une équipe qualifiée, nous réalisons des chantiers sur mesure en respectant les normes de qualité et de sécurité.</p>
-</section>
-
-<section id="services">
-  <h2>Nos Services</h2>
-  <p>Gros œuvre de bâtiment, travaux de maçonnerie, fondations, rénovation structurelle, et accompagnement personnalisé pour tous vos projets de construction.</p>
-</section>
-
-<section id="gallery">
-  <h2>Galerie</h2>
-  <div class="gallery">
-    <img src="https://images.unsplash.com/photo-1570126681032-3a7c41f13b0d?auto=format&fit=crop&w=800&q=80" alt="chantier 1">
-    <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80" alt="chantier 2">
-    <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=800&q=80" alt="chantier 3">
+  <!-- NAV -->
+  <div class="nav" role="navigation" aria-label="Navigation principale">
+    <div class="container nav-wrap">
+      <div class="brand">FORMAWIN</div>
+      <nav class="menu">
+        <a href="#gallery">Galerie</a>
+        <a href="#features">Nos Services</a>
+        <a href="#coming">Bientôt</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
   </div>
-</section>
 
-<section id="contact">
-  <h2>Contactez-nous</h2>
-  <p>Email : contact@vebatiment.shop</p>
-  <p>Téléphone : +33 6 05 99 64 90</p>
-  <form class="contact-form">
-    <input type="text" placeholder="Nom">
-    <input type="email" placeholder="Email">
-    <textarea placeholder="Votre message"></textarea>
-    <button type="submit">Envoyer</button>
-  </form>
-</section>
+  <!-- HERO -->
+  <header class="hero" role="banner">
+    <div class="gridfx" aria-hidden="true"></div>
+    <div class="glow" aria-hidden="true"></div>
+    <div class="hero-content">
+      <div class="tags">
+        <span class="tag">Accompagnement & Réinsertion</span>
+        <span class="tag">Formation & Coaching</span>
+      </div>
+      <h1 class="title">Révéler les talents, accélérer l’insertion</h1>
+      <p class="subtitle">Programmes personnalisés d’orientation, de formation et d’accès à l’emploi — pour tous publics.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#contact">Nous contacter</a>
+        <a class="btn btn-ghost" href="mailto:admin@dvtrix.shop">admin@dvtrix.shop</a>
+        <a class="btn btn-ghost" href="tel:+33746346711">+33&nbsp;7&nbsp;46&nbsp;34&nbsp;67&nbsp;11</a>
+      </div>
+    </div>
+  </header>
 
-<section id="map">
-  <h2>Adresse</h2>
-  <p>66 Avenue du Maréchal Foch, 78130 Les Mureaux, France</p>
-  <iframe src="https://www.google.com/maps?q=66+Avenue+du+Mar%C3%A9chal+Foch,+Les+Mureaux,+France&output=embed" allowfullscreen loading="lazy"></iframe>
-</section>
+  <!-- GALLERY -->
+  <section id="gallery" class="container">
+    <h2 class="section-title reveal">Galerie</h2>
+    <p class="muted reveal">Moments de formation, d’accompagnement et de réussite.</p>
+    <div class="gallery" style="margin-top:18px">
+      <figure class="shot reveal">
+        <img src="https://avatars.mds.yandex.net/i?id=e90a6b1adf34f7c316f4ea0ebba47900faf657e9-9293412-images-thumbs&n=13" alt="Atelier de groupe">
+      </figure>
+      <figure class="shot reveal">
+        <img src="https://avatars.mds.yandex.net/i?id=1fba8d254de1449cc4df1afa186420660eedb881-10310276-images-thumbs&n=13" alt="Coaching individuel">
+      </figure>
+      <figure class="shot reveal">
+        <img src="https://avatars.mds.yandex.net/i?id=0e009095c35f8071d00289b8fb801ff1529b0463-3712015-images-thumbs&n=13" alt="Mise en situation professionnelle">
+      </figure>
+      <figure class="shot reveal">
+        <img src="https://avatars.mds.yandex.net/i?id=e4e582125222a6169e1bf3e85fb89a335ad00aea-9148772-images-thumbs&n=13" alt="Réunion d’équipe">
+      </figure>
+      <figure class="shot reveal">
+        <img src="https://avatars.mds.yandex.net/i?id=185d536e5487ba2ecadcbc931ce7e4e4077edcab-5325822-images-thumbs&n=13" alt="Signature d’embauche">
+      </figure>
+    </div>
+  </section>
 
-<footer>
-  &copy; 2025 V.E. BATIMENT — Tous droits réservés
-</footer>
+  <!-- FEATURES -->
+  <section id="features" class="features">
+    <div class="container">
+      <h2 class="section-title reveal">Nos Services (5 piliers)</h2>
+      <p class="muted reveal">Des parcours clairs, mesurables et humains.</p>
+      <div class="features-list">
+        <div class="feature reveal"><span class="dot"></span> Bilan de compétences & orientation avec plan d’action personnalisé.</div>
+        <div class="feature reveal"><span class="dot"></span> Formations métiers et soft skills (numérique, communication, sécurité, etc.).</div>
+        <div class="feature reveal"><span class="dot"></span> Coaching à l’emploi : CV, entretien, réseau et confiance en soi.</div>
+        <div class="feature reveal"><span class="dot"></span> Partenariats entreprises pour stages, alternance et placements durables.</div>
+        <div class="feature reveal"><span class="dot"></span> Suivi social & administratif (handicap, mobilité, aides) avec indicateurs de résultat.</div>
+      </div>
+    </div>
+  </section>
 
+  <!-- COMING SOON -->
+  <section id="coming" class="coming">
+    <div class="container" style="text-align:center">
+      <span class="badge">🚀 Bientôt en ligne</span>
+      <h3 class="reveal" style="margin:10px 0 6px">Portail candidat, e-learning & prise de rendez-vous</h3>
+      <div class="marquee" aria-hidden="true">
+        <span>Inscription rapide</span>
+        <span>Cours vidéo</span>
+        <span>Tests & Quizz</span>
+        <span>Offres d’emploi</span>
+        <span>Suivi des objectifs</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="container">
+    <h2 class="section-title reveal">Contact</h2>
+    <div class="contact-grid" style="margin-top:12px">
+      <div class="card reveal">
+        <ul class="list">
+          <li><strong>Structure :</strong> FORMAWIN</li>
+          <li><strong>Email :</strong> <a href="mailto:admin@dvtrix.shop">admin@dvtrix.shop</a></li>
+          <li><strong>Tél :</strong> <a href="tel:+33746346711">+33 7 46 34 67 11</a></li>
+          <li><strong>Adresse :</strong> C/O FLASH SECRETARIAT, 10 Rue Blacas, 06000 Nice, Provence-Alpes-Côte d’Azur, France</li>
+        </ul>
+        <button class="btn-send" onclick="window.location.href='mailto:admin@dvtrix.shop'">Envoyer un email</button>
+      </div>
+      <div class="card reveal">
+        <form onsubmit="event.preventDefault(); window.location.href='mailto:admin@dvtrix.shop?subject=Demande%20d%27information&body=' + encodeURIComponent(document.getElementById('msg').value);">
+          <input type="text" placeholder="Votre nom" required />
+          <input type="email" placeholder="Votre email" required />
+          <textarea id="msg" placeholder="Expliquez votre besoin (formation, insertion, etc.)"></textarea>
+          <button type="submit" class="btn-send">Nous contacter</button>
+        </form>
+      </div>
+    </div>
+    <div class="container" style="padding-top:14px">
+      <iframe
+        src="https://www.google.com/maps?q=10+Rue+Blacas,+06000+Nice,+France&output=embed"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Plan d’accès FORMAWIN">
+      </iframe>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">© <span id="year"></span> FORMAWIN — Tous droits réservés.</div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+      });
+    }, {threshold:.15});
+    document.querySelectorAll('.reveal, .feature').forEach(el=>io.observe(el));
+  </script>
 </body>
 </html>
